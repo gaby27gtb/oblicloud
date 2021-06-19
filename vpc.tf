@@ -6,7 +6,7 @@ resource "aws_internet_gateway" "ig_obligatorio" {
   vpc_id = aws_vpc.VPC_obligatorio.id
 }
 
-resource "aws_default_route_table" "test-terraform-rt" {
+resource "aws_default_route_table" "obligatorio-rt" {
   default_route_table_id = aws_vpc.VPC_obligatorio.default_route_table_id
 
   route {
@@ -26,6 +26,7 @@ resource "aws_subnet" "vpc-subnet-us-east-1a" {
   map_public_ip_on_launch = true
   tags = {
     Name = "VPC US-East-1a"
+    resource = "kubernetes.io/cluster/app-cluster"
   }
 }
 
@@ -36,15 +37,6 @@ resource "aws_subnet" "vpc-subnet-us-east-1b" {
   map_public_ip_on_launch = true
   tags = {
     Name = "VPC US-east-1b"
-  }
-}
-
-resource "aws_subnet" "vpc-subnet-us-east-1c" {
-  vpc_id     = aws_vpc.VPC_obligatorio.id
-  cidr_block = "172.16.3.0/24"
-  availability_zone = var.az-1c
-  map_public_ip_on_launch = true
-  tags = {
-    Name = "VPC US-East-1c"
+    resource = "kubernetes.io/cluster/app-cluster"
   }
 }
