@@ -1,0 +1,6 @@
+FROM centos:centos7
+RUN yum install -y httpd php git
+RUN git clone https://github.com/mauricioamendola/simple-ecomme
+RUN mv /simple-ecomme/* /var/www/html
+EXPOSE 80
+ENTRYPOINT ["/usr/sbin/httpd", "-D", "FOREGROUND"]
