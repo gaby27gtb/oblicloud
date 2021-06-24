@@ -24,7 +24,6 @@ resource "aws_security_group" "eks-sg" {
   }
 }
 
-
 resource "aws_security_group" "rds-sg" {
   name        = "rds-sg"
   description = "Allow mysql inbound traffic"
