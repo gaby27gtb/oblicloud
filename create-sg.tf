@@ -24,32 +24,7 @@ resource "aws_security_group" "eks-sg" {
   }
 }
 
-/*resource "aws_security_group" "s3-sg" {
-  name        = "s3-sg"
-  description = "Allow http inbound traffic"
-  vpc_id      = aws_vpc.VPC_obligatorio.id
 
-  ingress {
-    description      = "http from public"
-    from_port        = 80
-    to_port          = 80
-    protocol         = "tcp"
-    security_groups      = [aws_security_group.eks-sg]
-  }
-
-  egress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
-  }
-
-  tags = {
-    Name = "s3-sg"
-  }
-}
-*/
 resource "aws_security_group" "rds-sg" {
   name        = "rds-sg"
   description = "Allow mysql inbound traffic"
