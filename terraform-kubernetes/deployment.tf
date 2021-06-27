@@ -1,8 +1,9 @@
-resource "kubernetes_deployment" "prueba" {
+resource "kubernetes_deployment" "obligatorio-dp" {
   metadata {
-    name = "terraform-example"
+    name = "obligatorio-dp"
+    namespace = kubernetes_namespace.obligatorio-ns.metadata.0.name
     labels = {
-      test = "MyExampleApp"
+      Name = "obligatorio-dp"
     }
   }
 
@@ -11,21 +12,21 @@ resource "kubernetes_deployment" "prueba" {
 
     selector {
       match_labels = {
-        test = "MyExampleApp"
+        Name = "obligatorio-dp"
       }
     }
 
     template {
       metadata {
         labels = {
-          test = "MyExampleApp"
+          Name = "obligatorio-dp"
         }
       }
 
       spec {
         container {
-          image = "nginx:1.7.8"
-          name  = "example"
+          image = "sogeking27/simple-ecomme"
+          name  = "simple-ecomme"
 
           resources {
             limits = {
@@ -36,21 +37,6 @@ resource "kubernetes_deployment" "prueba" {
               cpu    = "250m"
               memory = "50Mi"
             }
-          }
-
-          liveness_probe {
-            http_get {
-              path = "/nginx_status"
-              port = 80
-
-              http_header {
-                name  = "X-Custom-Header"
-                value = "Awesome"
-              }
-            }
-
-            initial_delay_seconds = 3
-            period_seconds        = 3
           }
         }
       }
