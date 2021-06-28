@@ -26,3 +26,6 @@ resource "aws_db_subnet_group" "subnet_db" {
   }
 }
 
+output "db-id" {
+  value = aws_db_instance.dbobligatorio.id
+}

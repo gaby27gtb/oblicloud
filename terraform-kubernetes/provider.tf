@@ -25,6 +25,13 @@ provider "aws" {
   region = "us-east-1"
 }
 
+/*data "aws_efs_mount_target" "documentos-1a" {
+}
+*/
+data "aws_db_instance" "dbobligatorio" {
+   db_instance_identifier = data.terraform_remote_state.eks.outputs.db-id
+}
+
 data "aws_eks_cluster" "app-cluster" {
   name = "app-cluster"
 }
