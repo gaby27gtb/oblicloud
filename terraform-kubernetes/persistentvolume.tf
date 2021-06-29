@@ -21,7 +21,7 @@ resource "kubernetes_persistent_volume" "documentos-efs-pv" {
 
 ##Persistent Volume Claim
 
-resource "kubernetes_persistent_volume_claim" "documentos-efs-pvc" {
+/*resource "kubernetes_persistent_volume_claim" "documentos-efs-pvc" {
   metadata {
     name = "documentos-efs-pvc"
     namespace = kubernetes_namespace.obligatorio-ns.metadata.0.name
@@ -36,4 +36,4 @@ resource "kubernetes_persistent_volume_claim" "documentos-efs-pvc" {
     }
     volume_name = "documentos-efs-pv"
   }
-}
+}*/

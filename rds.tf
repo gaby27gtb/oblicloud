@@ -8,7 +8,7 @@ resource "aws_db_instance" "dbobligatorio" {
   password             = "passwordort"
   skip_final_snapshot  = true
   availability_zone = "us-east-1a"
-  vpc_security_group_ids = [aws_security_group.rds-sg.id]
+  vpc_security_group_ids = [aws_security_group.rds-sg.id, aws_security_group.eks-sg.id]
   db_subnet_group_name = aws_db_subnet_group.subnet_db.name
 
   maintenance_window      = "Sat:01:00-Sat:04:00"

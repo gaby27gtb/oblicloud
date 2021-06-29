@@ -35,16 +35,16 @@ resource "kubernetes_deployment" "obligatorio-dp" {
             value = data.terraform_remote_state.eks.outputs.db-address
           }
          
-          volume_mount {
+          /*volume_mount {
             name = "documentos-efs-pv"
             mount_path = "/mnt"
-          }
+          }*/
         }
-        volume {
+        /*volume {
           persistent_volume_claim {
             claim_name = "documentos-efs-pvc"
           }
-        }  
+        }*/
       }
     }
   }
