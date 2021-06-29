@@ -4,7 +4,7 @@ resource "kubernetes_persistent_volume" "documentos-efs-pv" {
     name = "documentos-efs-pv"
   }
   spec {
-    storage_class_name = "efs-sc"
+    storage_class_name = ""
     persistent_volume_reclaim_policy = "Retain"
     capacity = {
       storage = "2Gi"
@@ -13,7 +13,7 @@ resource "kubernetes_persistent_volume" "documentos-efs-pv" {
     persistent_volume_source {
       nfs {
         path = "/"
-        server = data.aws_efs_mount_target.documentos-1a.dns_name
+        server = data.terraform_remote_state.eks.outputs.documentos-fs-dns_name
       }
     }
   }
@@ -27,12 +27,13 @@ resource "kubernetes_persistent_volume_claim" "documentos-efs-pvc" {
     namespace = kubernetes_namespace.obligatorio-ns.metadata.0.name
   }
   spec {
+    storage_class_name = ""
     access_modes = ["ReadWriteMany"]
     resources {
       requests = {
-        storage = "5Gi"
+        storage = "2Gi"
       }
     }
-    volume_name = kubernetes_persistent_volume.documentos-efs-pv.metadata.0.name
+    volume_name = "documentos-efs-pv"
   }
 }

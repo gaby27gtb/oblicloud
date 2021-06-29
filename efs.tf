@@ -19,3 +19,11 @@ resource "aws_efs_mount_target" "documentos-1b" {
   subnet_id      = aws_subnet.vpc-subnet-us-east-1b.id
   security_groups      = [aws_security_group.eks-sg.id]
 }
+
+output "documentos-fs-id" {
+  value = aws_efs_file_system.documentos-fs.id
+}
+
+output "documentos-fs-dns_name" {
+  value = aws_efs_file_system.documentos-fs.dns_name
+}

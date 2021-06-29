@@ -8,45 +8,45 @@ resource "kubernetes_deployment" "obligatorio-dp" {
   }
 
   spec {
-    replicas = 1
+    replicas = 2
 
     selector {
       match_labels = {
-        Name = "obligatorio-dp"
+        name = "obligatorio-dp"
       }
     }
 
     template {
       metadata {
         labels = {
-          Name = "obligatorio-dp"
+          name = "obligatorio-dp"
         }
       }
 
       spec {
         container {
-          image = "sogeking27/simple-ecomme:v2"
+          image = "sogeking27/simple-ecomme:v4"
           name  = "simple-ecomme"
-
-          /*resources {
-            limits = {
-              cpu    = "0.5"
-              memory = "512Mi"
-            }
-            requests = {
-              cpu    = "250m"
-              memory = "50Mi"
-            }
+          port {
+          container_port = 80
           }
-          /*volume_mount {
+          env {
+            name = "dbhost"
+            value = data.terraform_remote_state.eks.outputs.db-address
+          }
+         
+          volume_mount {
             name = "documentos-efs-pv"
-            mount_path = "/"
-          }*/
+            mount_path = "/mnt"
+          }
         }
-        /*volume {
-          kubernetes_persistent_volume_claim = 
-        }*/
+        volume {
+          persistent_volume_claim {
+            claim_name = "documentos-efs-pvc"
+          }
+        }  
       }
     }
   }
 }
+  
